@@ -1,5 +1,8 @@
 extends layout
 
+include mixins/_storeForm
+
 block content
-  .wrapper
-    h1 Edit Store
+  .inner
+    h1= title
+    +storeForm()
