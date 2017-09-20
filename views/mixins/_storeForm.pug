@@ -1,2 +1,12 @@
 mixin storeForm(store = {})
-  p It works!
+  form(action="/add" method="POST" enctype="multipart/form-data" class="card")
+    label(for="name") Name
+    input(type="text" name="name")
+    label(for="description") Description
+    input(type="text" name="description")
+    - const choices = ['Wifi', 'Open Late', 'Family Friendly', 'Vegetarian', 'Licensed']
+    ul.tags
+      each choice in choices
+        .tag.tag__choice
+          input(type="checkbox" id="choice" value="choice" name="tags")
+          label(for="choice") #{choice}
