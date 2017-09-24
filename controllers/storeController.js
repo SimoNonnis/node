@@ -13,8 +13,15 @@ exports.createStore = async (req, res) => {
 };
 
 exports.getStores = async (req, res) => {
-  // 1. Query DB for a list of all stores.
   const stores = await Store.find();
 
   res.render('stores', { title: 'Stores', stores });
+};
+
+exports.editStore = async (req, res) => {
+  // 1. Query DB for stores given the id
+  const store = await Store.findOne({ _id: req.params.id });
+  // 2. Confirm they are the owners of the stores
+  // 3. Render an edit form so the user can update
+  res.render('editStore', { title: `Edit ${store.name}`, store });
 };
