@@ -14,9 +14,10 @@ router.post('/add',
 );
 router.post('/add/:id',
   storeController.upload,
-  catchErrors(storeController.resize), 
+  catchErrors(storeController.resize),
   catchErrors(storeController.updateStore)
 );
 router.get('/stores/:id/edit', catchErrors(storeController.editStore))
+router.get('/store/:slug', storeController.getStore);
 
 module.exports = router;

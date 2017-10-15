@@ -75,3 +75,7 @@ exports.updateStore = async (req, res) => {
   );
   res.redirect(`/stores/${store._id}/edit`);
 };
+
+exports.getStore = (req, res) => {
+  res.render('store');
+}
