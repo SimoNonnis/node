@@ -25,14 +25,15 @@ router.get('/tags', catchErrors(storeController.getStoreByTag));
 router.get('/tags/:tag', catchErrors(storeController.getStoreByTag));
 
 router.get('/login', userController.loginForm);
+router.post('/login', authController.login);
+router.get('/logout', authController.logout);
+
 router.get('/register', userController.registerForm);
 router.post('/register',
   userController.validateRegister,
   userController.register,
   authController.login
 );
-
-router.get('/logout', authController.logout);
 
 
 
