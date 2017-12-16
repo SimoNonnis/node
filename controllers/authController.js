@@ -38,7 +38,7 @@ exports.forgot = async (req, res) => {
 
   // 2. Set reset tokens and expiry in their account
   user.resetPasswordToken = crypto.randomBytes(20).toString('hex');
-  user.resetPasswordExpires = Date.now() + 3600000 // 1 hour from now
+  user.resetPasswordExpires = Date.now() + 360000 // 1 hour from now
 
   await user.save();
 
