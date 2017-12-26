@@ -100,3 +100,13 @@ exports.getStoreByTag = async (req, res) => {
 
   res.render('tag', { tags, stores, title: 'Tags', tag });
 }
+
+exports.searchStores = async (req, res) => {
+  const stores = await Store.find({
+    $text: {
+      $search: req.query.q,
+    }
+  });
+
+  res.json(stores);
+}
