@@ -1,4 +1,4 @@
-const axios = require('axios');
+import axios from 'axios';
 
 function searchResultsHTML(stores) {
   return stores.map(store => {
@@ -39,7 +39,29 @@ function typeAhead(search) {
   searchInput.on('keyup', (e) => {
     // We are interested if they are pressing arrows up or down or enter
     if (![38, 40, 13].includes(e.keyCode)) return;
-    console.log(e.keyCode);
+
+    const activeClass = 'search__result--active';
+    const current = search.querySelector(`.${activeClass}`);
+    const items = search.querySelectorAll('.search__result');
+    let next;
+
+    if (e.keyCode === 40 && current) {
+      next = current.nextElementSibling || items[0];
+    } else if (e.keyCode === 40) {
+      next = items[0];
+    } else if (e.keyCode === 38 && current) {
+      next = current.previousElementSibling || items[items.length - 1];
+    } else if (e.keyCode === 38) {
+      next = items[items.length - 1];
+    } else if (e.keyCode === 13 && current.href) {
+      window.location = current.href;
+      return;
+    }
+
+    if (current) {
+      current.classList.remove(activeClass);
+    }
+    next.classList.add(activeClass);
   });
 }
 
