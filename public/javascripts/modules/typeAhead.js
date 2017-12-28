@@ -16,7 +16,7 @@ function typeAhead(search) {
   const searchInput = search.querySelector('[name="search"]');
   const searchResults = search.querySelector('.search__results');
 
-  searchInput.on('input', function(e) {
+  searchInput.on('input', (e) => {
     if (!e.target.value) {
       searchResults.style.display = 'none';
       return;
@@ -33,6 +33,13 @@ function typeAhead(search) {
         }
       })
       .catch(err => console.error(err));
+  });
+
+  // Handle keyboard inputs
+  searchInput.on('keyup', (e) => {
+    // We are interested if they are pressing arrows up or down or enter
+    if (![38, 40, 13].includes(e.keyCode)) return;
+    console.log(e.keyCode);
   });
 }
 
