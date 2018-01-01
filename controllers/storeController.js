@@ -117,3 +117,7 @@ exports.searchStores = async (req, res) => {
 
   res.json(stores);
 }
+
+exports.mapStores = async (req, res) => {
+  res.json({ Hi: 'There'});
+}
