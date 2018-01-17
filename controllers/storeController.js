@@ -90,7 +90,7 @@ exports.getStoreBySlug = async (req, res, next  ) => {
   if (!store) return next();
 
   res.render('store', { title: store.name, store });
-}
+};
 
 exports.getStoreByTag = async (req, res) => {
   const tag = req.params.tag;
@@ -100,7 +100,7 @@ exports.getStoreByTag = async (req, res) => {
   const [tags, stores] = await Promise.all([tagsPromise, storePromise]);
 
   res.render('tag', { tags, stores, title: 'Tags', tag });
-}
+};
 
 exports.searchStores = async (req, res) => {
   const stores = await Store
@@ -117,7 +117,7 @@ exports.searchStores = async (req, res) => {
   .limit(5);
 
   res.json(stores);
-}
+};
 
 exports.mapStores = async (req, res) => {
   const coordinates = [req.query.lng, req.query.lat].map(parseFloat);
@@ -139,11 +139,11 @@ exports.mapStores = async (req, res) => {
     .select('slug name description location photo')
     .limit(10);
   res.json(stores);
-}
+};
 
 exports.mapPage = (req, res) => {
   res.render('map', { title: 'Map'});
-}
+};
 
 exports.heartStore = async (req, res) => {
   const hearts = req.user.hearts.map(obj => obj.toString());
@@ -155,7 +155,7 @@ exports.heartStore = async (req, res) => {
   );
 
   res.json(user);
-}
+};
 
 exports.getHearts = async (req, res) => {
   const stores = await Store.find({
@@ -163,4 +163,10 @@ exports.getHearts = async (req, res) => {
   });
 
   res.render('stores', { title: 'Hearted stores', stores });
-}
+};
+
+exports.getTopStores = async (req, res) => {
+  const stores = await Store.getTopStores();
+  res.json(stores);
+  // res.render('topStores', { stores, title: 'Top stores!' });
+};
