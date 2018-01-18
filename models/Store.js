@@ -87,14 +87,21 @@ storeSchema.statics.getTopStores = function() {
       localField: '_id',
       foreignField: 'store',
       as: 'reviews'
-    }}
+    }},
     // Filter for items that have 2 or more reviews
-
+    { $match: {
+      'reviews.1': { $exists: true }
+    }},
     // Add average reviews field
-
+    { $addFields: {
+      averageRating: { $avg: '$reviews.rating' }
+    }},
     // Sort it by new field, highest reviews first
-
+    { $sort: {
+      averageRating: -1
+    }},
     // Limit to at most 10
+    { $limit: 10 }
   ]);
 }
 
