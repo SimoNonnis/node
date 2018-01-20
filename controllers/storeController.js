@@ -51,12 +51,16 @@ exports.getStores = async (req, res) => {
   const limit = 4;
   const skip = (page * limit) - limit
 
-  const stores = await Store
+  const storesPromise = Store
     .find()
     .skip(skip)
     .limit(limit);
+  const countPromise = Store.count();
+  const [stores, count] = await Promise.all([storesPromise, countPromise]);
 
-  res.render('stores', { title: 'Stores', stores });
+  const pages = Math.ceil(count / limit);
+
+  res.render('stores', { title: 'Stores', stores, page, pages, count });
 };
 
 const confirmOwner = (store, user) => {
