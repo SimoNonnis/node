@@ -47,7 +47,14 @@ exports.createStore = async (req, res) => {
 };
 
 exports.getStores = async (req, res) => {
-  const stores = await Store.find();
+  const page = req.params.page || 1;
+  const limit = 4;
+  const skip = (page * limit) - limit
+
+  const stores = await Store
+    .find()
+    .skip(skip)
+    .limit(limit);
 
   res.render('stores', { title: 'Stores', stores });
 };
